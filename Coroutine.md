@@ -258,13 +258,18 @@ suspend fun toastingBread(): String {
 21:56:47.263 [DefaultDispatcher-worker-1 @coroutine#2] INFO CoroutinesPlayground - Ending the morning routine
 ```
 
+## Cancellation
+Kotlin allows us to cancel the execution of coroutines; The Job type provides a cancel function that cancels the execution of the coroutine. However, the cancellation is not immediate and happens only when the coroutine reaches a suspending point. 
 
+Cancellation propagates down the hierarchy of coroutines because when a job is cancelled, all its children are also cancelled.
 
 
 
 
 ### Resource:
 kotlin 101 [here](https://rockthejvm.com/articles/kotlin-101-coroutines)
+
+under the hood [here](https://www.droidcon.com/2024/04/25/how-suspend-functions-work-in-kotlin-under-the-hood/)
 
 
 
