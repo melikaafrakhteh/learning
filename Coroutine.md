@@ -69,6 +69,68 @@ class LoginRepository(...) {
 ## Suspend Function
 regular function + suspend/resume concept
 
+In one line: Suspending a coroutine means stopping it in the middle.
+
+#### example:
+Let’s start playing a video game:
+
+You are playing well(Suppose).
+
+You reach a checkpoint.
+
+You save the current position.
+
+You turn off the game and both you and your computer focus on doing different things now.
+
+You are done with your tasks and you come back and resume from where you saved.
+
+A coroutine can start executing the function, it can suspend(save the state and leave the thread for others), and later resume, once any suspending task(like a network call) is done executing.
+
+```
+suspend fun myFunction() {
+  println("Before")
+  delay(1000) // suspending
+  println("After")
+}
+```
+
+under the hood:
+```
+// A simplified picture of how myFunction looks under the hood
+fun myFunction(continuation: Continuation<Unit>): Any {
+  if (continuation.label == 0) { //Starting point, label stores the point where the execution was suspended.
+    println("Before")
+    continuation.label = 1 //Update just before suspension
+    if (delay(1000, continuation) == COROUTINE_SUSPENDED){
+      return COROUTINE_SUSPENDED
+    }
+  }
+  //Point after suspension
+  if (continuation.label == 1) {
+    println("After")
+    return Unit
+  }
+  error("Impossible")
+}
+```
+
+This function needs its continuation to remember its state.
+> [!IMPORTANT]
+> Using suspend doesn't tell Kotlin to run a function on a background thread. It's normal for suspend functions to operate on the main thread. It's also common to launch coroutines on the main thread. You should always use withContext() inside a suspend function when you need main-safety, such as when reading from or writing to disk, performing network operations, or running CPU-intensive operations.
+```
+suspend fun fetchDocs() {                      // Dispatchers.Main
+    val result = get("developer.android.com")  // Dispatchers.Main
+    show(result)                               // Dispatchers.Main
+}
+
+suspend fun get(url: String) =                 // Dispatchers.Main
+    withContext(Dispatchers.IO) {              // Dispatchers.IO (main-safety block)
+        /* perform network IO here */          // Dispatchers.IO (main-safety block)
+    }                                          // Dispatchers.Main
+}
+```
+
+
 
 ## coroutine builder
 
