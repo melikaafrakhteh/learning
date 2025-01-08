@@ -1,13 +1,15 @@
 # Coroutine :shipit:
 
 ### a powerful tool for asynchronous programming.
+### Kotlin’s coroutines fall under the umbrella of structured concurrency.
+
 ### threads are heavy:
 #### For every thread, the OS must allocate a lot of context information on the stack. Moreover, every time a computation reaches a blocking operation, the underneath thread is paused, and the JVM must load the context of another thread. The context switch is costly, so we should avoid blocking operations in our code.
 
 ### coroutines are very lightweight:
 #### They are not mapped directly on OS threads but at the user level, with simple objects called continuations. Switching between coroutines does not require the OS to load another thread’s context but to switch the reference to the continuation object.
 
-#### a coroutine is not bound to any particular thread. It may suspend its execution in one thread and resume in another one.
+#### Coroutines do not replace threads, it’s more like a framework to manage it and a coroutine is not bound to any particular thread. It may suspend its execution in one thread and resume in another one.
 
 > [!NOTE]
 > Making a network request on the main thread causes it to wait, or block, until it receives a response. Since the thread is blocked, the OS isn't able to call onDraw(), which causes your app to freeze and potentially leads to an Application Not Responding (ANR) dialog. For a better user experience, let's run this operation on a background thread.
@@ -149,6 +151,8 @@ fun CoroutineScope.launch(
 #### Job
 Controls the lifecycle of the coroutine
 
+A job can go through the states: New, Active, Completing, Completed, Cancelling, and Cancelled. We don’t have access to the states, but we can access the following properties: isActive, isCancelled and isCompleted.
+
 #### CoroutineContext
 The coroutine context is a set of various elements. The main elements are the Job of the coroutine and its dispatcher
 
@@ -258,10 +262,36 @@ suspend fun toastingBread(): String {
 21:56:47.263 [DefaultDispatcher-worker-1 @coroutine#2] INFO CoroutinesPlayground - Ending the morning routine
 ```
 
+### runBlocking
+It is used to run tasks by blocking whichever thread it’s called on until the block completes.
+
 ## Cancellation
 Kotlin allows us to cancel the execution of coroutines; The Job type provides a cancel function that cancels the execution of the coroutine. However, the cancellation is not immediate and happens only when the coroutine reaches a suspending point. 
 
 Cancellation propagates down the hierarchy of coroutines because when a job is cancelled, all its children are also cancelled.
+
+Such a parent-child relationship will trigger some behaviours given below:
+
+ if parent job cancel, children’s jobs are cancelled as well
+ 
+ if we cancel the child’s job, the parent’s job continues on.
+ 
+ when a child’s job throw error, the parent’s job is cancelled as well
+ 
+ when the parent’s job error out, the children’s job is cancelled
+
+ ![diagram](https://miro.medium.com/v2/resize:fit:640/format:webp/0*ERs5s5V6-QD7BjY6.png)
+
+ ### SupervisorJob:
+ Children of a supervisor job can fail independently of each other. A failure or cancellation of a child does not cause the supervisor job to fail and does not affect its 
+ other children; so a supervisor can implement a custom policy for handling failures of its children.
+ 
+## Exceptions handling
+
+`CoroutineExceptionHandler` is invoked only on uncaught exceptions — exceptions that were not handled in any other way. In particular, all children coroutines (coroutines created in the context of another Job) delegate handling of their exceptions to their parent coroutine, which also delegates to the parent, and so on until the root, so the CoroutineExceptionHandler installed in their context is never used. In addition to that, async builder always catches all exceptions and represents them in the resulting Deferred object, so its CoroutineExceptionHandler has no effect either.
+
+> [!WARNING]
+> `launch` and `async` handle exceptions differently. Since async expects an eventual call to await, it holds exceptions and rethrows them as part of the await call. This means if you use async to start a new coroutine from a regular function, you might silently drop an exception. These dropped exceptions won't appear in your crash metrics or be noted in logcat.
 
 
 
@@ -270,6 +300,8 @@ Cancellation propagates down the hierarchy of coroutines because when a job is c
 kotlin 101 [here](https://rockthejvm.com/articles/kotlin-101-coroutines)
 
 under the hood [here](https://www.droidcon.com/2024/04/25/how-suspend-functions-work-in-kotlin-under-the-hood/)
+
+extra information [here](https://medium.com/gradeup/introduction-to-kotlin-coroutines-for-beginners-8b1d2a41c008)
 
 
 
