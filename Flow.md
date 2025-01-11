@@ -179,3 +179,157 @@ Exception in thread "main" java.lang.RuntimeException: An exception occurred
 ...
 ```
 
+`catch` method that we can chain to the flow to handle exceptions.
+
+```
+// Kotlin Coroutines Library
+public fun <T> Flow<T>.catch(action: suspend FlowCollector<T>.(cause: Throwable) -> Unit): Flow<T>
+```
+example:
+```
+val spiderMenActorsFlowWithException_v3 =
+        flow {
+            emit(tobeyMaguire)
+            emit(andrewGarfield)
+            throw RuntimeException("An exception occurred")
+            emit(tomHolland)
+        }
+        .catch { ex -> emit(tomHolland) }
+        .onStart { println("The Spider Men flow is starting") }
+        .onCompletion { println("The Spider Men flow is completed") }
+        .collect { println(it) }
+```
+
+output:
+```
+The Spider Men flow is starting
+Actor(id=Id(id=13), firstName=FirstName(firstName=Tobey), lastName=LastName(lastName=Maguire))
+Actor(id=Id(id=14), firstName=FirstName(firstName=Andrew), lastName=LastName(lastName=Garfield))
+Actor(id=Id(id=12), firstName=FirstName(firstName=Tom), lastName=LastName(lastName=Holland))
+The Spider Men flow is completed
+```
+we can think about the catch function as a catch block that handles all the exceptions thrown before it in the chain. For this reason, the catch function can’t catch the exceptions thrown by the collect function .
+
+example:
+```
+val spiderMenActorsFlowWithException =
+    flow {
+        emit(tobeyMaguire)
+        emit(andrewGarfield)
+        emit(tomHolland)
+    }
+    .catch { ex -> println("I caught an exception!") }
+    .onStart { println("The Spider Men flow is starting") }
+    .onCompletion { println("The Spider Men flow is completed") }
+    .collect {
+        if (true) throw RuntimeException("Oooops")
+        println(it)
+    }
+```
+
+output:
+```
+The Spider Men flow is starting
+The Spider Men flow is completed
+Exception in thread "main" java.lang.RuntimeException: Oooops
+...
+```
+
+The only way we can prevent this case is to move the collect logic into a dedicated onEach function and put a catch in the chain after the onEach function. We can rewrite the above example as follows:
+
+```
+val spiderMenActorsFlowWithException =
+    flow {
+        emit(tobeyMaguire)
+        emit(andrewGarfield)
+        emit(tomHolland)
+    }
+    .onEach {
+        if (true) throw RuntimeException("Oooops")
+        println(it)
+    }
+    .catch { ex -> println("I caught an exception!") }
+    .onStart { println("The Spider Men flow is starting") }
+    .onCompletion { println("The Spider Men flow is completed") }
+    .collect()
+```
+
+output:
+```
+The Spider Men flow is starting
+I caught an exception!
+The Spider Men flow is completed
+```
+
+The Kotlin Coroutines library provides a function to retry the execution of a flow in case of an exception: the `retry` function.
+
+```
+// Kotlin Coroutines Library
+public fun <T> Flow<T>.retry(
+    retries: Long = Long.MAX_VALUE,
+    predicate: suspend (cause: Throwable) -> Boolean = { true } //The lambda decides whether the operation should be retried. 
+): Flow<T>
+```
+
+
+### Flows are very similar to collections regarding the API available for transforming them. We can map, filter, and reduce them.
+
+#### map:
+
+```
+fun <T, R> Flow<T>.map(transform: suspend (value: T) -> R): Flow<R> =
+    flow {
+        this@map.collect { value ->
+            emit(transform(value))
+        }
+    }
+```
+
+example:
+```
+val lastNameOfJLActors: Flow<LastName> = zackSnyderJusticeLeague.map { it.lastName }
+```
+
+#### filter:
+
+```
+fun <T> Flow<T>.filter(predicate: suspend (value: T) -> Boolean): Flow<T> =
+    flow {
+        this@filter.collect { value ->
+            if (predicate(value)) {
+                emit(value)
+            }
+        }
+    }
+```
+
+example:
+```
+val lastNameOfJLActors5CharsLong: Flow<LastName> =
+    lastNameOfJLActors.filter { it.lastName.length == 5 }
+```
+
+#### fold:
+the fold function is used to reduce the values of a flow to a single value. It’s a final operation, like the collect function, which suspends the current coroutine until the flow ends to emit values. 
+
+```
+// Kotlin Coroutines Library
+public suspend inline fun <T, R> Flow<T>.fold(
+    initial: R,
+    crossinline operation: suspend (acc: R, value: T) -> R
+): R {
+    var accumulator = initial
+    collect { value ->
+        accumulator = operation(accumulator, value)
+    }
+    return accumulator
+}
+```
+
+example:
+```
+val numberOfJlaActors: Int =
+      zackSnyderJusticeLeague.fold(0) { currentNumOfActors, actor -> currentNumOfActors + 1 }
+```
+
+
