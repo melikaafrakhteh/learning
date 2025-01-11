@@ -332,4 +332,7 @@ val numberOfJlaActors: Int =
       zackSnyderJusticeLeague.fold(0) { currentNumOfActors, actor -> currentNumOfActors + 1 }
 ```
 
+### Resource:
+flow 101 [here](https://rockthejvm.com/articles/kotlin-101-flows#introduction)
+
 
