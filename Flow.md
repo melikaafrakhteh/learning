@@ -1,8 +1,21 @@
 # Flow 🚰
 
-A Flow<T> is a reactive data structure that emits a sequence of type T values. 
+#### A suspending function asynchronously returns a single value, but how can we return multiple asynchronously computed values? This is where Kotlin Flows come in.
+
+Flow is essentially a reactive stream of data that can be emitted from a producer and collected by a consumer. 
 
 Flows are part of the Kotlin Coroutines library.
+
+#### Flows are `cold` streams similar to sequences — the code inside a flow builder does not run until the flow is collected. 
+
+## Hot And Cold:
+ `Hot data sources` are eager. They produce elements as soon as possible and store them. They create elements independently of their consumption. These are collections (List, Set) and Channel.
+  Also, SharedFlow and StateFlow are hot.
+
+  `Cold data sources` are lazy. They process elements on-demand on the terminal operation. All intermediate functions just define what should be done (most often using the Decorator pattern). They generally do not store elements and create them on demand. They do the minimal number of operations and can be infinite. Their creation and processing of elements is typically the same process as consumption. These elements are Sequence, Java Stream, Flow and RxJava streams (Observable, Single, etc).
+
+  ![hot/cold](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB_sSVbHp_PobE7ggwcn3WxCiNe-lH7sf1xg&s)
+
 
 ## Flow Builders:
 ### flowOf
@@ -50,6 +63,8 @@ val numbers: Flow<Int> = flow {
   emit(5)
 }
 ```
+
+
 
 ### A flow is started when a terminal operation is called on it
 
@@ -334,5 +349,6 @@ val numberOfJlaActors: Int =
 
 ### Resource:
 flow 101 [here](https://rockthejvm.com/articles/kotlin-101-flows#introduction)
+hot and cold [here](https://kt.academy/article/cc-hot-cold)
 
 
