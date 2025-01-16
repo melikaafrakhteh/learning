@@ -11,6 +11,8 @@
 
 #### Coroutines do not replace threads, it’s more like a framework to manage it and a coroutine is not bound to any particular thread. It may suspend its execution in one thread and resume in another one.
 
+#### Suspending a coroutine does not block the underlying thread, but allows other coroutines to run and use the underlying thread for their code.
+
 > [!NOTE]
 > Making a network request on the main thread causes it to wait, or block, until it receives a response. Since the thread is blocked, the OS isn't able to call onDraw(), which causes your app to freeze and potentially leads to an Application Not Responding (ANR) dialog. For a better user experience, let's run this operation on a background thread.
 
@@ -132,6 +134,29 @@ suspend fun get(url: String) =                 // Dispatchers.Main
 }
 ```
 
+## Scope builder
+`runBlocking` and `coroutineScope` builders may look similar because they both wait for their body and all its children to complete. 
+
+The main difference is that the runBlocking method blocks the current thread for waiting, while coroutineScope just suspends, releasing the underlying thread for other usages. Because of that difference, runBlocking is a regular function and coroutineScope is a suspending function.
+
+```
+fun main() = runBlocking { // this: CoroutineScope
+    doWorld()
+}
+
+suspend fun doWorld() = coroutineScope {  // this: CoroutineScope
+    launch {
+        delay(1000L)
+        println("World!")
+    }
+    println("Hello")
+
+out:
+Hello
+World!
+}
+
+```
 
 
 ## coroutine builder
@@ -262,9 +287,6 @@ suspend fun toastingBread(): String {
 21:56:47.263 [DefaultDispatcher-worker-1 @coroutine#2] INFO CoroutinesPlayground - Ending the morning routine
 ```
 
-### runBlocking
-It is used to run tasks by blocking whichever thread it’s called on until the block completes.
-
 ## Cancellation
 Kotlin allows us to cancel the execution of coroutines; The Job type provides a cancel function that cancels the execution of the coroutine. However, the cancellation is not immediate and happens only when the coroutine reaches a suspending point. 
 
@@ -285,6 +307,11 @@ Such a parent-child relationship will trigger some behaviours given below:
  ### SupervisorJob:
  Children of a supervisor job can fail independently of each other. A failure or cancellation of a child does not cause the supervisor job to fail and does not affect its 
  other children; so a supervisor can implement a custom policy for handling failures of its children.
+
+ ## Structured concurrency
+ new coroutines can only be launched in a specific CoroutineScope which delimits the lifetime of the coroutine. 
+
+ Structured concurrency ensures that they are not lost and do not leak. An outer scope cannot complete until all its children coroutines complete. Structured concurrency also ensures that any errors in the code are properly reported and are never lost.
  
 ## Exceptions handling
 
