@@ -19,7 +19,7 @@ Flows are part of the Kotlin Coroutines library.
 
 ## Flow Builders:
 ### flowOf
- We can create a flow from a finite list of values using the flowOf function.
+ We can create a flow from a finite list of values (fix values) using the flowOf function.
 
  example:
 ```
@@ -286,6 +286,7 @@ public fun <T> Flow<T>.retry(
 ): Flow<T>
 ```
 
+## Transformation Operators
 
 ### Flows are very similar to collections regarding the API available for transforming them. We can map, filter, and reduce them.
 
@@ -347,8 +348,59 @@ val numberOfJlaActors: Int =
       zackSnyderJusticeLeague.fold(0) { currentNumOfActors, actor -> currentNumOfActors + 1 }
 ```
 
+##  StateFlow
+ StateFlow is a special kind of `Hot Flow` that allows you to represent a single value that can be observed by multiple subscribers. It’s often used to represent the state of an application or a specific feature within an application.
+```
+val count = MutableStateFlow(0)
+
+count.value = 1
+
+count.update { value ->
+    value + 1
+}
+
+count.collect { value ->
+    // do something with the new value
+}
+ ```
+
+One important thing to note about StateFlow is that while it’s thread-safe and can be accessed from multiple coroutines, it’s important to use the update function when updating the state from multiple coroutines to avoid race conditions and ensure consistency.
+
+
+## SharedFlow
+SharedFlow is one type of ‍‍`hot flow` that is commonly used for event streaming.
+
+SharedFlow is that it is designed for event streaming and does not maintain any state. This means that it is suitable for emitting repetitive events such as button clicks or sensor readings, but not for managing application state.
+
+```
+val mySharedFlow = MutableSharedFlow<String>()
+
+// Start emitting events every 500ms
+coroutineScope.launch {
+    while (true) {
+        mySharedFlow.emit("Event")
+        delay(500)
+    }
+}
+
+// Collect events from the shared flow
+coroutineScope.launch {
+    mySharedFlow.collect { event ->
+        println("Received event: $event")
+    }
+}
+```
+
+
 ### Resource:
 flow 101 [here](https://rockthejvm.com/articles/kotlin-101-flows#introduction)
+
 hot and cold [here](https://kt.academy/article/cc-hot-cold)
+
+### Read More
+
+[Kotlin Coroutine Flows: Deep Dive (Part 1 Cold Flows)](https://proandroiddev.com/kotlin-coroutine-flows-deep-dive-part-1-cold-flows-e030405d1664)
+
+[Kotlin Coroutine Flows: Deep Dive (Part 2: Hot Flows🔥)](https://proandroiddev.com/kotlin-coroutine-flows-deep-dive-part-2-hot-flows-9571b7620f66)
 
 
