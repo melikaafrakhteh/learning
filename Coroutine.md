@@ -108,7 +108,7 @@ fun myFunction(continuation: Continuation<Unit>): Any {
     println("Before")
     continuation.label = 1 //Update just before suspension
     if (delay(1000, continuation) == COROUTINE_SUSPENDED){
-      return COROUTINE_SUSPENDED
+      return COROUTINE_SUSPENDED // if the delay function returns COROUTINE_SUSPENDED, it means that the function was suspended, and we return COROUTINE_SUSPENDED to the caller.
     }
   }
   //Point after suspension
