@@ -11,14 +11,12 @@
 
 #### Coroutines do not replace threads, it’s more like a framework to manage it and a coroutine is not bound to any particular thread. It may suspend its execution in one thread and resume in another one.
 
-#### Suspending a coroutine does not block the underlying thread, but allows other coroutines to run and use the underlying thread for their code.
+#### why coroutine is like a thread? Because coroutines are a set of instructions executed by a processor. 
+
+#### Suspending a coroutine does not block the underlying thread, but allows other coroutines to run and use the underlying thread for their code.(It copies and saves current frame of stack)
 
 > [!NOTE]
 > Making a network request on the main thread causes it to wait, or block, until it receives a response. Since the thread is blocked, the OS isn't able to call onDraw(), which causes your app to freeze and potentially leads to an Application Not Responding (ANR) dialog. For a better user experience, let's run this operation on a background thread.
-
-> Note that all coroutines must run in a scope. A CoroutineScope manages one or more related coroutines.
-
-> Since this coroutine is started with viewModelScope, it is executed in the scope of the ViewModel. If the ViewModel is destroyed because the user is navigating away from the screen, viewModelScope is automatically cancelled, and all running coroutines are canceled as well
 
 ```
 sealed class Result<out R> {
@@ -64,6 +62,10 @@ class LoginRepository(...) {
     }
 }
 ```
+
+> Note that all coroutines must run in a scope. A CoroutineScope manages one or more related coroutines.
+
+> Since this coroutine is started with viewModelScope, it is executed in the scope of the ViewModel. If the ViewModel is destroyed because the user is navigating away from the screen, viewModelScope is automatically cancelled, and all running coroutines are canceled as well
 
 > [!NOTE]
 > When you don't pass a Dispatcher to launch, any coroutines launched from viewModelScope run in the `main thread`.
@@ -119,6 +121,9 @@ fun myFunction(continuation: Continuation<Unit>): Any {
 ```
 
 This function needs its continuation to remember its state.
+
+Why doesn't a coroutine (suspend function) return until all the tasks it has started are completed? ‌Because of continuation (gone through all the labels and reached the last one)
+
 > [!IMPORTANT]
 > Using suspend doesn't tell Kotlin to run a function on a background thread. It's normal for suspend functions to operate on the main thread. It's also common to launch coroutines on the main thread. You should always use withContext() inside a suspend function when you need main-safety, such as when reading from or writing to disk, performing network operations, or running CPU-intensive operations.
 ```
@@ -309,6 +314,10 @@ Such a parent-child relationship will trigger some behaviours given below:
  other children; so a supervisor can implement a custom policy for handling failures of its children.
 
  ## Structured concurrency
+ simply:
+  If we have a function that starts several tasks concurrently and only returns after all the tasks it 
+  started are completed, this structure follows concurrency principles.
+
  new coroutines can only be launched in a specific CoroutineScope which delimits the lifetime of the coroutine. 
 
  Structured concurrency ensures that they are not lost and do not leak. An outer scope cannot complete until all its children coroutines complete. Structured concurrency also ensures that any errors in the code are properly reported and are never lost.
