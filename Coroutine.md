@@ -11,7 +11,7 @@
 
 #### Coroutines do not replace threads, it’s more like a framework to manage it and a coroutine is not bound to any particular thread. It may suspend its execution in one thread and resume in another one.
 
-#### why coroutine is like a thread? Because coroutines are a set of instructions executed by a processor. 
+#### why coroutine is like a thread? Because coroutines are a set of instructions executed by a process. 
 
 #### Suspending a coroutine does not block the underlying thread, but allows other coroutines to run and use the underlying thread for their code.(It copies and saves current frame of stack)
 
