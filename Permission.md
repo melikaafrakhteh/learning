@@ -95,6 +95,14 @@ example:
 
 2.Group related permissions together to reduce the number of permission requests(CAMERA and RECORD_AUDIO).
 
+### android 6
+
+On your apps that target Android 6.0 (API level 23) or higher, make sure to check for and request permissions at runtime. To determine if your app has been granted a permission, call the new *checkSelfPermission()* method. To request a permission, call the new *requestPermissions()* method. Even if your app is not targeting Android 6.0 (API level 23), you should test your app under the new permissions model.
+
+### android 11
+#### The biggest change is the introduction of one-time permissions.
+
+In the past users have been given two options, either allow an app to use things like their location or don’t but now the traditional permission request will have three options: “Only this time”, “While using the app”, or “Deny”.
 
 
 
