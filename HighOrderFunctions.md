@@ -55,3 +55,13 @@ a top-level, local, member, or extension function: ::isOdd, String::toInt
 a top-level, member, or extension property: List<Int>::size
 
 a constructor: ::Regex
+
+example of lambda function and function type:
+
+```
+ val sum: (Int, Int) -> Int = {x, y -> x + y}
+    println(sum(2,7)) // out put = 9
+
+   // val sum: (Int, Int) -> Int declares a function type.
+   // { x, y -> x + y } is a lambda function, not just a regular variable.
+ ```
