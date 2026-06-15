@@ -133,6 +133,77 @@ our code as machine language—1s and 0s. If you want to be a good soft-
 ware developer, you have to learn to deal effectively with people (even if
 writing code is the part of your job you enjoy the most).
 
+If you think your job is to write code, you had better think again. Your
+job as a software developer, and in just about any profession, is to deal
+with people.
+
+#### Learning how to deal with people
+
+**Everyone wants to feel important:**
+
+It’s one of the deepest and most desperate desires of the
+human race and the primary motivation for most great achievements in
+society and life.
+
+You can never win a person’s heart if you do not
+leave their pride intact.
+
+**Never criticize:**
+
+Time and time again, studies have shown that rewarding a positive
+behavior is much more effective than punishing a negative behavior. If
+you’re in a position of leadership or management, this is an especially
+important principle to observe.You have to learn to bite your tongue
+and only speak words of encouragement if you want to inspire people
+to perform their best or you want to effect change.
+
+**Think about what the other person wants:**
+
+The key to successfully dealing with people is to stop thinking in terms
+of you and what you want and start thinking in terms of what is impor-
+tant to the other person and what she wants.
+
+**Avoiding arguments:**
+
+As software developers, we sometimes tend to think that all people
+think about things from a logical perspective. It’s easy to fall into the
+trap of falsely believing that solid reasoning is enough to compel
+another person to accept your way of thinking.
+The truth of the matter is that even though we like to pride ourselves
+on our intellectual prowess, we’re all very emotional creatures.
+
+I have come to the conclusion that there is only one way
+under high heaven to get the best of an argument—and
+that is to avoid it. Avoid it as you would avoid
+rattlesnakes and earthquakes.
+Dale Carnegie, How to Win Friends and Influence People
+
+**Landmine: Dealing with “poisonous” people**
+Sometimes, you’ll find that there are people who you just can’t get along with no mat-
+ter what. Some people are just looking for opportunities to bring others down and
+generally have a negative view of everything in life. I call these kinds of people caus-
+tic, and you would do well to avoid them.
+If you recognize someone as being caustic, don’t try to change them, and don’t try
+to deal with them; just stay out of their way and limit your interactions as much as
+possible. You can recognize the signs of a caustic person by the trail of destruction
+they leave behind them. Some people seem to always be involved in some kind of
+drama and have bad things happen to them. They often try to play themselves off as
+the victim. If you recognize this pattern, run—run away as fast as you can.
+But what can you do if this kind of person is your boss or a coworker you have to
+interact with? Not much. You might either have to suck it up or you might have to
+look into moving to a new department or even a new job. Whatever you do, don’t get
+sucked into their trap. If you have to interact with them, do it in a minimal, nonemo-
+tionally invested way.
+
+### Hacking the interview
+
+#### The quickest way to “pass” an interview
+
+
+
+
+
+
 
 
 
