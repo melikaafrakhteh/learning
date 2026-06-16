@@ -197,7 +197,12 @@ tionally invested way.
 
 ### Hacking the interview
 
+Although resume writing is a skill you can delegate to someone else, inter-
+viewing is something only you can do, so it’s a critical skill to master.
+
 #### The quickest way to “pass” an interview
+
+
 
 
 
