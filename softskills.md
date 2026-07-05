@@ -250,23 +250,86 @@ If necessary, consider changing teams or roles.
 
 # 🎤 Hacking the Interview
 
-Writing a résumé can be outsourced.
+### The Interview Starts Before the Interview
+The biggest advantage isn't technical skill—it's being **known and trusted** before you apply.
 
-Interviewing cannot.
+### Key Takeaways
 
-Learning how to interview effectively is one of the highest-return career skills you can develop.
+- Technical skills get you **considered**.
+- **Likeability, communication, and trust** often get you **hired**.
+- Build relationships with employees **before** applying.
+- **Referrals** dramatically increase your chances of getting an interview and an offer.
+- Network through blogs, LinkedIn, developer communities, and meetups.
+- If you need a job urgently, create contact with the interviewer before the interview (short call, questions, follow-up).
+- During the interview, demonstrate that you're:
+  - Confident
+  - Self-driven
+  - Independent
+  - A problem solver
+- Employers prefer developers who **get things done without constant supervision**.
+- Keep improving your technical skills—they're still the foundation.
 
-## 🚀 The Quickest Way to Pass an Interview
+### ✅ Action Items
 
-> Interviewers are not only evaluating your technical skills.
->
-> They are asking themselves:
->
-> **"Would I enjoy working with this person every day?"**
+- Make a list of companies you want to work for.
+- Connect with employees at those companies.
+- Attend developer meetups and expand your network.
+- Practice interviewing regularly.
+- Build your personal brand (GitHub, LinkedIn, blog, talks).
 
-Technical competence gets you considered.
+> **Technical competence gets you considered. Professionalism, communication, and relationships get you hired.**
 
-Professionalism, communication, and attitude get you hired.
+---
+
+## 💼 Employment Options
+
+There are **three main career paths** for software developers:
+
+### 1. Employee
+- ✅ Stable income and lower risk
+- ✅ Clear career path
+- ❌ Less freedom
+- ❌ Income has a ceiling
+
+### 2. Independent Consultant
+- ✅ More freedom and higher earning potential
+- ✅ Choose your clients and projects
+- ❌ Must find your own clients
+- ❌ Run your own business
+
+### 3. Entrepreneur
+- ✅ Complete freedom
+- ✅ Unlimited earning potential
+- ✅ Build your own products/business
+- ❌ Highest risk
+- ❌ Requires business, sales, and marketing skills
+
+> **For most developers, starting as an employee is the best way to gain experience. You can always transition to consulting or entrepreneurship later.**
+
+---
+
+# What kind of software developer are you?
+
+
+## 🎯 Choose a Specialization
+
+Don't define yourself by a programming language.
+
+Instead, specialize in a specific problem, technology, or domain.
+
+### Key Takeaways
+
+- **Specialists are easier to hire than generalists.**
+- The more specific your niche, the fewer opportunities you'll have—but the higher your chances of getting them.
+- A programming language is just a tool, **not your identity**.
+- Pick a specialization based on:
+  - Market demand
+  - Problems companies need solved
+  - Your interests and strengths
+- Keep learning broadly, but **market yourself as a specialist**.
+- Your specialization can change as technology evolves.
+
+> **Be broad in your skills, but known for one thing.**
 
 ---
 
