@@ -284,3 +284,115 @@ Junior کد را باز می‌کند تا جایی را که باید تغیی�
 
 
 
+......................
+## 3 Writing Code
+
+کد خوب باید:
+
+Readable + Concise + Organized + Maintainable
+
+مهم‌تر از همه Intent خودش را واضح منتقل کند.
+
+یکی از معیارها Cyclomatic Complexity است:
+
+هرچه تعداد مسیرهای مختلف اجرای کد بیشتر شود، فهم و تست آن سخت‌تر می‌شود و احتمالاً Refactoring لازم است.
+
+ابزارهای Static Analysis هم می‌توانند کمک کنند مشکلات را زود پیدا کنیم.
+
+
+یکی از اصول اساسی فصل:
+
+هرچه کد کمتری داشته باشی، کد کمتری هم باید بفهمی و نگهداری کنی.
+
+هدف Software Design این است که سیستم بزرگ را به قسمت‌هایی تقسیم کنیم که مغز انسان بتواند آن‌ها را بفهمد.
+
+
+High Cohesion
+
+چیزهایی که به هم مربوط‌اند کنار هم باشند.
+
+Low Coupling
+
+قسمت‌های مختلف سیستم تا جای ممکن وابستگی کمی به یکدیگر داشته باشند.
+
+Composition را به Inheritance ترجیح بده
+
+اصل معروف:
+
+Favor Composition over Inheritance
+
+Inheritance گاهی درست است، اما نباید صرفاً برای Code Reuse استفاده شود.
+
+Inheritance when relationship truly is-a
+Composition when behavior/capability should be assembled
+
+Reuse باید نتیجه‌ی Design خوب باشد، نه دلیل اصلی Inheritance.
+
+اگر نمی‌توانی اسم مناسبی برای Method پیدا کنی، احتمال دارد مسئولیتش واضح نباشد.
+
+Comment باید WHY را توضیح دهد، نه WHAT را.
+
+
+
+در Review بهتر است تمرکز روی این‌ها باشد:
+
+Naming
+Readability
+Duplication
+Logging / Tracing / Metrics
+Interfaces
+Error-prone code
+Domain Model
+Abstractions
+
+Formatting و Style تا جای ممکن باید توسط ابزارها automate شوند. وقت انسان گران‌تر از آن است که سر فاصله و newline بجنگد، هرچند صنعت نرم‌افزار سال‌هاست با شجاعت این واقعیت را نادیده گرفته.
+
+تیم‌ها Bugها و مشکلات جالب هفته را با هم بررسی کنند تا دانشی که یک نفر به دست آورده بین بقیه پخش شود.
+
+
+چک‌لیست عملی فصل برای هر Task
+
+قبل از Coding:
+
+1. آیا واقعاً باید Code جدید بنویسم؟
+2. آیا چیزی مشابه در Codebase داریم؟
+3. Language/Framework راه‌حل دارد؟
+4. Library مناسب وجود دارد؟
+
+هنگام Coding:
+
+5. ساده‌ترین Solution چیست؟
+6. Cohesion بالا و Coupling پایین است؟
+7. آیا Class/Method زیادی بزرگ شده؟
+8. آیا Composition بهتر از Inheritance است؟
+9. Naming بدون خواندن body Intent را منتقل می‌کند؟
+10. Accidental Complexity ایجاد کرده‌ام؟
+11. Test دارم؟
+
+قبل از PR:
+
+12. Dead/Duplicate code را حذف کن.
+13. Static Analysis را اجرا کن.
+14. Commentهای WHAT را حذف یا با کد واضح جایگزین کن.
+15. Commentهای ضروری WHY را نگه دار.
+16. PR را کوچک و قابل Review نگه دار.
+
+و برای تمرین، فصل پیشنهاد می‌کند Code Kata انجام دهی، یک مسئله را با چند روش یا چند زبان حل کنی، کد قدیمی خودت را دوباره Review کنی و گاهی Open Source بخوانی یا در آن مشارکت کنی. همچنین باید هر چند وقت یک بار تغییرات زبان و Framework اصلی خودت را مرور کنی.
+
+سه فصل اول در سه جمله
+
+فصل ۱، Programmer → Engineer:
+قبل از اینکه Solution بدهی، Problem را بفهم.
+
+فصل ۲، Reading Code:
+قبل از اینکه Code را تغییر دهی، System را بفهم.
+
+فصل ۳، Writing Code:
+وقتی Code می‌نویسی، آن را برای Developer بعدی بنویس، نه صرفاً برای Compiler.
+
+اگر این سه عادت جا بیفتند، تغییر اصلی دیگر «Kotlin بیشتری بلد بودن» نیست. داری کم‌کم از کسی که Task را implement می‌کند به کسی تبدیل می‌شوی که می‌تواند درباره‌ی کیفیت راه‌حل قضاوت کند. و خب، متأسفانه همین قسمت سخت‌تر و ارزشمندتر مهندسی نرم‌افزار است.
+
+
+.......
+
+## 4 Modeling
