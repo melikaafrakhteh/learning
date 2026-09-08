@@ -82,6 +82,7 @@ Root Cause
 وقتی وارد کد موجود می‌شوی، در واقع باید چهار مسئله را حل کنی:
 
 Business Problem را بفهمی.
+
 بفهمی Developer قبلی چطور به مسئله نگاه کرده است.
 بررسی کنی آیا Abstraction و Model فعلی مناسب‌اند.
 لایه‌های Technical Debt و تصمیم‌های تاریخی را بفهمی.
@@ -90,6 +91,195 @@ Business Problem را بفهمی.
 
 
 
+
+وقتی وارد Codebase ناآشنا شدی، از کجا شروع کنی؟
+
+اشتباه رایج این است:
+
+Open project → Random class → Scroll → Confusion
+
+روش پیشنهادی کتاب ساختارمندتر است.
+
+مرحله ۱: از آدم‌ها شروع کن
+
+اول از اعضای تیم overview بگیر.
+
+بپرس:
+
+سیستم چه کاری انجام می‌دهد؟
+قسمت‌های اصلی کدام‌اند؟
+معماری کلی چیست؟
+مهم‌ترین flowها چیست؟
+مرحله ۲: Documentation
+
+بخوان:
+
+README
+Wiki
+Architecture Documentation
+ADR
+Coding Standards
+
+خصوصاً ADR یا Architecture Decision Record مهم است چون فقط نمی‌گوید چه تصمیمی گرفته شده، بلکه می‌تواند توضیح دهد چرا گرفته شده است.
+
+اگر Documentation قدیمی یا ناقص است، هنگام یادگیری آن را اصلاح کن.
+
+حداقل باید بتوانی پاسخ این سؤال‌ها را پیدا کنی:
+
+این Service چه کاری انجام می‌دهد؟
+چطور کار می‌کند؟
+به چه چیزهایی وابسته است؟
+چطور پروژه را اجرا کنیم؟
+
+
+یکی از مفاهیم اصلی فصل Software Archaeology است.
+
+وقتی Codebase جدیدی می‌بینی، مثل باستان‌شناس عمل کن.
+
+اول تصویر بزرگ را پیدا کن:
+
+Project Structure → Modules → Packages → Dependencies → Domain Concepts
+
+ببین:
+
+Monolith است یا Distributed؟
+Domainها کجا هستند؟
+Tests کجا هستند؟
+Moduleها چطور با هم ارتباط دارند؟
+
+بعد یک Landmark پیدا کن.
+
+مثلاً در Android:
+
+روی Login کلیک می‌کنم.
+
+بعد مسیر را دنبال کن:
+
+Login Screen
+↓
+ViewModel
+↓
+UseCase
+↓
+Repository
+↓
+API
+↓
+Response
+↓
+State
+↓
+UI
+
+به جای تلاش برای فهم کل پروژه، یک Flow واقعی را از ابتدا تا انتها دنبال کن.
+
+هدف نهایی ساختن یک ental Model از سیستم است.
+
+روش مؤثر:
+
+Run → Action → Breakpoint → Trace
+
+مثلاً:
+
+کاربر Search می‌زند.
+
+Breakpoint بگذار و ببین:
+
+UI → Controller/ViewModel → Business Logic → Repository → DB/API
+
+اگر چیزی که انتظار داشتی اتفاق نیفتاد، دوباره مسیر را بررسی کن.
+
+کم‌کم اتصال بین رفتار واقعی برنامه و کد در ذهنت شکل می‌گیرد.
+
+
+برای Code Reading از این‌ها زیاد استفاده کن:
+
+Find Usages
+Find References
+Go to Definition
+Find Implementations
+Call Hierarchy
+Type Hierarchy
+Dependency Diagram
+Structure View
+
+مثلاً اگر نمی‌دانی یک Interface چه نقشی دارد:
+
+Interface → Find Implementations → Find Usages → Call Hierarchy
+
+خیلی سریع‌تر از این است که ۸۰۰ فایل را مثل یک رمان روسی ورق بزنی.
+
+هفته‌ای یک Shortcut یا Feature جدید.
+
+حتی یک فایل شخصی به نام مثلاً:
+
+IDE Tricks
+
+بساز و Shortcutها و قابلیت‌های جدید را داخلش یادداشت کن و مرتب مرورشان کن تا تبدیل به muscle memory شوند.
+
+
+Testها را قبل از Implementation بخوان
+
+این یکی از مهم‌ترین تکنیک‌های فصل است.
+
+Code می‌گوید سیستم چگونه کار می‌کند.
+Test می‌گوید سیستم قرار است چگونه کار کند.
+
+Test خوب مثل Living Documentation است.
+
+اصل پیشنهادی کتاب:
+
+You are the pilot, not the passenger. Trust but verify.
+
+یعنی AI سرعتت را بالا ببرد، نه اینکه فهم سیستم را به آن outsource کنی.
+
+این نکته با Agentic Coding حتی مهم‌تر می‌شود. چون اگر AI بتواند ۲۰ هزار خط کد بسازد، کسی هنوز باید بفهمد آن ۲۰ هزار خط دقیقاً چه بلایی سر سیستم آورده است.
+
+
+چک‌لیست عملی Code Reading
+
+وقتی فردا یک Task یا Codebase ناآشنا گرفتی، این ترتیب خیلی خوب است:
+
+1. Business Problem را بفهم.
+
+2. README / Docs / ADR را بخوان.
+
+3. Project Structure را بررسی کن.
+
+4. Domain و Module مرتبط را پیدا کن.
+
+5. برنامه را Run کن.
+
+6. یک User Flow مشخص انتخاب کن.
+
+7. Testهای مربوط به آن Flow را بخوان.
+
+8. از Find Usages / Go to Definition استفاده کن.
+
+9. Call Hierarchy را دنبال کن.
+
+10. Breakpoint بگذار و Flow را Trace کن.
+
+11. Git History / Blame را بررسی کن.
+
+12. Edge Caseها را از Testها پیدا کن.
+
+13. چیزهایی را که فهمیدی یادداشت یا Document کن.
+
+14. بعد تغییر را انجام بده.
+
+این دقیقاً همان مهارتی است که نویسنده توصیه می‌کند با خواندن پروژه‌های Open Source تمرین شود. هیچ shortcut خاصی هم ندارد، باید مرتب کد دیگران را بخوانی.
+
+خلاصه‌ی فصل در یک جمله
+
+Junior کد را باز می‌کند تا جایی را که باید تغییر دهد پیدا کند؛ Engineer کد را می‌خواند تا بفهمد سیستم چرا این‌گونه رفتار می‌کند، بعد تصمیم می‌گیرد کجا و چگونه باید تغییرش دهد.
+
+و اگر بخواهم دو فصل اول را به هم وصل کنم:
+
+فصل ۱: قبل از Solution، Problem را بفهم.
+فصل ۲: قبل از تغییر Code، System را بفهم.
+
+این دو عادت به ظاهر ساده بخش بزرگی از فاصله‌ی «کسی که خوب Kotlin می‌نویسد» با «Software Engineer قوی» را تشکیل می‌دهند.
 
 
 
