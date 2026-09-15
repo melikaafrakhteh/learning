@@ -396,3 +396,85 @@ Formatting و Style تا جای ممکن باید توسط ابزارها automa
 .......
 
 ## 4 Modeling
+
+
+اگر سه فصل قبل می‌گفتند «مسئله را بفهم، سیستم را بخوان، بعد کد خوب بنویس»، این فصل یک ابزار مهم دیگر به جعبه‌ابزار مهندس نرم‌افزار اضافه می‌کند:
+
+قبل از اینکه همه‌چیز را با کد توضیح بدهی، گاهی یک دیاگرام ساده می‌تواند مسئله و طراحی را بسیار واضح‌تر کند.
+
+Software Model یک نمایش ساده‌شده و انتزاعی از سیستم است که کمک می‌کند:
+
+Structure سیستم را بفهمیم،
+Behavior آن را بررسی کنیم،
+Interactions را ببینیم،
+و مهم‌تر از همه، Design را با دیگران Communicate کنیم.
+
+مثلاً به جای اینکه برای همکارت توضیح بدهی:
+
+Screen به ViewModel وصل است، ViewModel UseCase را صدا می‌زند، UseCase Repository را...
+
+می‌توانی بکشی:
+
+UI
+ ↓
+ViewModel
+ ↓
+UseCase
+ ↓
+Repository
+ ↓
+API
+
+
+
+برای کار واقعی، کدام Diagram را انتخاب کنم؟
+
+این Mental Model را حفظ کن:
+
+سؤال	Diagram
+سیستم با چه چیزهایی ارتباط دارد؟	Context
+اجزای اصلی سیستم چیست؟	Component
+Classها چه رابطه‌ای دارند؟	Class
+این Flow چطور اجرا می‌شود؟	Sequence
+سیستم کجا Deploy شده؟	Deployment
+Security Boundaryها کجاست؟	Security
+Dataها چه رابطه‌ای دارند؟	Data Model
+
+..........................
+## 5 Automated Testing
+
+Quality is not an act, it is a habit
+
+یعنی کیفیت نرم‌افزار با یک بار Refactor یا نوشتن چند Test قبل از Release ساخته نمی‌شود. کیفیت نتیجه‌ی عادت دائمی به نوشتن، Review کردن و Test کردن درست کد است.
+
+اما Test فقط برای پیدا کردن Bug نیست. فصل چهار فایده‌ی اصلی برایش مطرح می‌کند:
+
+Documentation
+Maintainability
+Confidence
+Consistency & Repeatability
+
+
+بنابراین Test خوب می‌تواند به تو بگوید:
+
+سیستم چه کاری می‌کند؟
+چه Behaviorهایی انتظار می‌روند؟
+Edge Caseها چیست؟
+کدام قسمت Code مربوط است؟
+
+
+
+یک Rule کاربردی:
+
+اگر Unit Test نوشتن برای یک Class به شکل غیرعادی سخت است، Design آن Class را هم بررسی کن.
+
+Behavior خودت را Test کن، نه اینکه ثابت کنی Kotlin و Android Framework هنوز سر کار آمده‌اند.
+
+
+SUT = System Under Test
+
+یعنی چیزی که در حال Test کردنش هستی.
+
+در Unit Test تمرکز باید روی SUT باشد، نه Dependencies اطرافش.
+
+
